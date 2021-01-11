@@ -21,7 +21,7 @@ export default function ForgotPassowrd() {
           <input type="text" />
         </div>
         <button type="button">
-          Enviar
+          Alterar senha
         </button>
       </main>
       <button type="button" className="back-button" onClick={goBack}>
