@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import HalfPage from '../components/HalfPage';
 
@@ -27,7 +27,9 @@ export default function SignIn() {
             <input type="checkbox" />
             <label>Lembrar-me</label>
           </div>
-          <strong>Esqueci minha senha</strong>
+          <Link to="/forgot-password" className="forgot-password">
+            Esqueci minha senha
+          </Link>
         </div>
 
         <button type="button">
