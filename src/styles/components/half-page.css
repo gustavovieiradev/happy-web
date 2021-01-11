@@ -1,0 +1,8 @@
+#component-half-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #15C3D6;  
+  justify-content: center;
+  align-items: center;
+}

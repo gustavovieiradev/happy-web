@@ -2,16 +2,15 @@ import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 
-import logoLogin from '../images/logo-login.svg';
+import HalfPage from '../components/HalfPage';
+
 import '../styles/pages/signin.css';
 
 export default function SignIn() {
   const { goBack } = useHistory();
   return (
     <div id="page-signin">
-      <div className="background">
-        <img src={logoLogin} alt="Happy" />
-      </div>
+      <HalfPage />
       <main>
         <h1>Fazer login</h1>
         <div className="box-input">
