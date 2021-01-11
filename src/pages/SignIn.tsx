@@ -1,10 +1,12 @@
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 
 import logoLogin from '../images/logo-login.svg';
 import '../styles/pages/signin.css';
 
 export default function SignIn() {
+  const { goBack } = useHistory();
   return (
     <div id="page-signin">
       <div className="background">
@@ -34,7 +36,7 @@ export default function SignIn() {
         </button>
       </main>
 
-      <button type="button" className="back-button">
+      <button type="button" className="back-button" onClick={goBack}>
         <FiArrowLeft size={24} color="#14C3D6" />
       </button>
     </div>
