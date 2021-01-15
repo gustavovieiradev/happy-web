@@ -2,6 +2,7 @@
 
 #page-create-orphanage {
   display: flex;
+  position: relative;
 }
 
 #page-create-orphanage main {
@@ -166,3 +167,4 @@ form.create-orphanage-form .confirm-button {
   border: none;
   border-radius: 20px;
 }
+
