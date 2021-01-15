@@ -11,6 +11,7 @@ import SuccessPage from '../components/SuccessPage';
 import mapIcon from '../utils/mapIcon';
 
 import '../styles/pages/create-orphanage.css';
+import { IParamsSuccess } from '../interfaces/IParamsSuccess';
 
 export default function OrphanagesMap() {
   const history = useHistory();
@@ -22,6 +23,13 @@ export default function OrphanagesMap() {
   const [open_on_weekends, setOpenWeekends] = useState(true);
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [paramsSuccess, setParamsSuccess] = useState<IParamsSuccess>({
+    title: 'Ebaaa!',
+    description: 'O cadastro deu certo e foi enviado ao administrador para ser aprovado. Agora é só esperar :)',
+    textButton: 'Voltar para o mapa',
+    linkButton: '/app',
+  });
 
   const Markers = () => {
     useMapEvents({
@@ -87,80 +95,81 @@ export default function OrphanagesMap() {
 
   return (
     <>
-      <SuccessPage/>
-      <div id="page-create-orphanage">
-        <Sidebar />
+      {success ? <SuccessPage params={paramsSuccess}/> : (
+        <div id="page-create-orphanage">
+          <Sidebar />
 
-        <main>
-          <form className="create-orphanage-form" onSubmit={handleSubmit}>
-            <fieldset>
-              <legend>Dados</legend>
+          <main>
+            <form className="create-orphanage-form" onSubmit={handleSubmit}>
+              <fieldset>
+                <legend>Dados</legend>
 
-              <MapContainer
-                center={[-15.8431217,-47.8723847]}
-                zoom={15}
-                style={{ width: '100%', height: 280 }}
-              >
-                <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
-                {/* <Marker interactive={false} icon={mapIcon} position={[-22.8037431,-47.5062772]} /> */}
-                <Markers />
-              </MapContainer>
+                <MapContainer
+                  center={[-15.8431217,-47.8723847]}
+                  zoom={15}
+                  style={{ width: '100%', height: 280 }}
+                >
+                  <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
+                  {/* <Marker interactive={false} icon={mapIcon} position={[-22.8037431,-47.5062772]} /> */}
+                  <Markers />
+                </MapContainer>
 
-              <div className="input-block">
-                <label htmlFor="name">Nome</label>
-                <input id="name" value={name} onChange={event => setName(event.target.value)} />
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
-                <textarea id="about" maxLength={300} onChange={event => setAbout(event.target.value)} value={about} />
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="images">Fotos</label>
-
-                <div className="images-container">
-                  {previewImages.map(image => (
-                    <img key={image} src={image} alt={name} />
-                  ))}
-                  <label className="new-image" htmlFor="image[]">
-                    <FiPlus size={24} color="#15b6d6" />
-                  </label>
+                <div className="input-block">
+                  <label htmlFor="name">Nome</label>
+                  <input id="name" value={name} onChange={event => setName(event.target.value)} />
                 </div>
-                <input type="file" id="image[]" multiple onChange={handleSelectImages} />
 
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Visitação</legend>
-
-              <div className="input-block">
-                <label htmlFor="instructions">Instruções</label>
-                <textarea id="instructions" onChange={event => setInstructions(event.target.value)} value={instructions}/>
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="opening_hours">Horário de funcionamento</label>
-                <input id="opening_hours" value={opening_hours} onChange={event => setOpeningHours(event.target.value)} />
-              </div>
-
-              <div className="input-block">
-                <label htmlFor="open_on_weekends">Atende fim de semana</label>
-
-                <div className="button-select">
-                  <button type="button" className={open_on_weekends ? 'active' : ''} onClick={() => setOpenWeekends(true)}>Sim</button>
-                  <button type="button" className={!open_on_weekends ? 'active' : ''} onClick={() => setOpenWeekends(false)}>Não</button>
+                <div className="input-block">
+                  <label htmlFor="about">Sobre <span>Máximo de 300 caracteres</span></label>
+                  <textarea id="about" maxLength={300} onChange={event => setAbout(event.target.value)} value={about} />
                 </div>
-              </div>
-            </fieldset>
 
-            <button className="confirm-button" type="submit">
-              Confirmar
-            </button>
-          </form>
-        </main>
-      </div>
+                <div className="input-block">
+                  <label htmlFor="images">Fotos</label>
+
+                  <div className="images-container">
+                    {previewImages.map(image => (
+                      <img key={image} src={image} alt={name} />
+                    ))}
+                    <label className="new-image" htmlFor="image[]">
+                      <FiPlus size={24} color="#15b6d6" />
+                    </label>
+                  </div>
+                  <input type="file" id="image[]" multiple onChange={handleSelectImages} />
+
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Visitação</legend>
+
+                <div className="input-block">
+                  <label htmlFor="instructions">Instruções</label>
+                  <textarea id="instructions" onChange={event => setInstructions(event.target.value)} value={instructions}/>
+                </div>
+
+                <div className="input-block">
+                  <label htmlFor="opening_hours">Horário de funcionamento</label>
+                  <input id="opening_hours" value={opening_hours} onChange={event => setOpeningHours(event.target.value)} />
+                </div>
+
+                <div className="input-block">
+                  <label htmlFor="open_on_weekends">Atende fim de semana</label>
+
+                  <div className="button-select">
+                    <button type="button" className={open_on_weekends ? 'active' : ''} onClick={() => setOpenWeekends(true)}>Sim</button>
+                    <button type="button" className={!open_on_weekends ? 'active' : ''} onClick={() => setOpenWeekends(false)}>Não</button>
+                  </div>
+                </div>
+              </fieldset>
+
+              <button className="confirm-button" type="submit">
+                Confirmar
+              </button>
+            </form>
+          </main>
+        </div>
+      )}
     </>
   );
 }

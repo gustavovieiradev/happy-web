@@ -5,13 +5,23 @@ import imgSuccess from '../images/image-success.svg';
 
 import '../styles/components/success-page.css';
 
-export default function SuccessPage() {
+interface Props {
+  params: {
+    title: string;
+    description: string;
+    textButton: string;
+    linkButton: string;
+  }
+}
+
+export default function SuccessPage({params}: Props) {
+  console.log(params)
   return (
     <div id="success">
         <div className="split-one">
-          <h1>Ebaaa!</h1>
-          <p>O cadastro deu certo e foi enviado ao administrador para ser aprovado. <br/> Agora é só esperar :)</p>
-          <Link to="/app" className="link">Voltar para o mapa</Link>
+          <h1>{params.title}</h1>
+          <p>{params.description}</p>
+          <Link to={params.linkButton} className="link">{params.textButton}</Link>
         </div> 
         <img src={imgSuccess} alt="Happy" />
     </div>
